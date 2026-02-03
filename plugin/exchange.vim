@@ -184,6 +184,7 @@ function! s:exchange_clear()
 endfunction
 
 function! s:save_reg(name)
+	if a:name == '*' && &clipboard != 'unnamed' || a:name == '+' && &clipboard != 'unnamedplus' | return ['', ''] | endif
 	try
 		return [getreg(a:name), getregtype(a:name)]
 	catch /.*/
@@ -192,6 +193,7 @@ function! s:save_reg(name)
 endfunction
 
 function! s:restore_reg(name, reg)
+	if a:name == '*' && &clipboard != 'unnamed' || a:name == '+' && &clipboard != 'unnamedplus' | return | endif
 	silent! call setreg(a:name, a:reg[0], a:reg[1])
 endfunction
 
